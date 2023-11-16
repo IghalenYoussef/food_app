@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:food_app/color.dart';
 import 'package:food_app/components/category_tab.dart';
 import 'package:food_app/components/product_item.dart';
-import 'package:food_app/constatnt.dart';
 import 'package:food_app/data/product_data.dart';
 import 'package:food_app/pages/home/home_controller.dart';
 import 'package:food_app/routers/app_route_name.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../constatnt.dart';
+
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  const HomeView({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      child:  Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _getHeader(),
@@ -33,36 +34,38 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }
-  Widget  _getHeader() {
+
+  Widget _getHeader() {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(left: gap, right: gap, top: gap),
+        padding: EdgeInsets.only(left: gap, right: gap,top: gap),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Hey, Youssef", style: TextStyle(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Hey, Sundy", style: TextStyle(
                     fontSize: 20,
-                    fontWeight:  FontWeight.bold
-                  ),),
-                  SizedBox(height: 5,),
-                  Text("Let's find quality food",style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),),
+                SizedBox(height: 5,),
+                Text("Let's find quanlity food", style: TextStyle(
                     fontWeight: FontWeight.w600,
-                      color: primary.withOpacity(0.5)
-                  ),)
-                ],
+                    color: primary.withOpacity(0.5)
+                ),)
+              ],
+            ),
+
+            ClipRRect(
+              borderRadius: BorderRadius.circular(gap),
+              child: Container(
+                  width: 50,
+                  height: 50,
+                  child: Image.asset("assets/images/profile.jpeg")
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(gap),
-                child: Container(
-                    width: 50,
-                    height: 50,
-                    child: Image.asset("assets/images/profile.jpeg")
-                ),
-              )
-            ]
+            )
+          ],
         ),
       ),
     );
@@ -70,65 +73,68 @@ class HomeView extends GetView<HomeController> {
 
   _getSearch() {
     return Container(
-      padding: EdgeInsets.only(left: gap, right: gap, top: gap),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius:  6,
-                      spreadRadius: 6,
-                      offset: Offset(0,03),
-                      color:  black.withOpacity(0.03)
-                    )
-                  ]
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "Search food...",
-                    hintStyle: TextStyle(
-                        color: primary.withOpacity(0.5)
-                    ),
-                    prefixIcon:  Container(
-                        padding: EdgeInsets. all(10),
-                        width: 28,
-                        height: 28,
-                        child: SvgPicture.asset("assets/icons/search.svg")
-                    ),
-                    enabledBorder:  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(gap),
-                      borderSide: BorderSide.none
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(gap),
-                        borderSide: BorderSide.none
+        padding: EdgeInsets.only(left: gap, right: gap, top: gap),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 6,
+                            spreadRadius: 6,
+                            offset: Offset(0,3),
+                            color: black.withOpacity(0.03)
+                        )
+                      ]
+                  ),
+                  child: TextFormField(
+
+                    decoration: InputDecoration(
+                      hintText: "Search food...",
+                      hintStyle: TextStyle(
+                          color: primary.withOpacity(0.5)
+                      ),
+                      filled: true,
+                      fillColor: white,
+                      prefixIcon: Container(
+                          padding: EdgeInsets.all(10),
+                          width: 28,
+                          height: 28,
+                          child: SvgPicture.asset("assets/icons/search.svg")
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(gap),
+                          borderSide: BorderSide.none
+                      ),
+                      focusedBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(gap),
+                          borderSide: BorderSide.none
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(width: 10,),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius:  BorderRadius.circular(gap),
-                color: secondPrimary
-              ),
-              padding:  EdgeInsets.only(left: 15, right: 15),
-              child: SizedBox(
-                width: 28,
-                height: 28,
-                child: SvgPicture.asset("assets/icons/filter.svg"),
-              ),
-            )
-          ],
-        ),
-      ),
+
+              SizedBox(width: 10,),
+
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(gap),
+                    color: secondPrimary
+                ),
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  child: SvgPicture.asset("assets/icons/filter.svg"),
+                ),
+              )
+            ],
+          ),
+        )
     );
   }
 
@@ -141,11 +147,12 @@ class HomeView extends GetView<HomeController> {
           Container(
             padding: EdgeInsets.only(left: gap, right: gap),
             child: Text("Categories", style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18
+                fontWeight: FontWeight.bold,
+                fontSize: 18
             ),),
           ),
           SizedBox(height: gap,),
+
           CategoryTab()
         ],
       ),
@@ -160,20 +167,21 @@ class HomeView extends GetView<HomeController> {
           Container(
             padding: EdgeInsets.only(left: gap, right: gap),
             child: Row(
-              mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Popular", style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18
                 ),),
                 Text("See all", style: TextStyle(
-                  color: black.withOpacity(0.5),
-                  fontWeight: FontWeight.w600
-                ),),
+                    color: black.withOpacity(0.5),
+                    fontWeight: FontWeight.w600
+                ),)
               ],
             ),
           ),
           SizedBox(height: gap,),
+
           Container(
             padding: EdgeInsets.only(left: gap, right: gap),
             child: Column(
@@ -186,6 +194,7 @@ class HomeView extends GetView<HomeController> {
                     });
                   },
                   child: ProductItem(
+                    tag: product["id"],
                     title: product["title"],
                     description: product["description"],
                     calory: product["calories"],
