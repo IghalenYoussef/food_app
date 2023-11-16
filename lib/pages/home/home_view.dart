@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/color.dart';
 import 'package:food_app/components/category_tab.dart';
+import 'package:food_app/components/product_item.dart';
 import 'package:food_app/constatnt.dart';
+import 'package:food_app/data/product_data.dart';
 import 'package:food_app/pages/home/home_controller.dart';
+import 'package:food_app/routers/app_route_name.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -23,7 +27,8 @@ class HomeView extends GetView<HomeController> {
         children: [
           _getHeader(),
           _getSearch(),
-          _getCategories()
+          _getCategories(),
+          _getPopular()
         ],
       ),
     );
@@ -142,6 +147,55 @@ class HomeView extends GetView<HomeController> {
           ),
           SizedBox(height: gap,),
           CategoryTab()
+        ],
+      ),
+    );
+  }
+
+  Widget _getPopular() {
+    return Container(
+      padding: EdgeInsets.only(top: gap),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: gap, right: gap),
+            child: Row(
+              mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Popular", style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                ),),
+                Text("See all", style: TextStyle(
+                  color: black.withOpacity(0.5),
+                  fontWeight: FontWeight.w600
+                ),),
+              ],
+            ),
+          ),
+          SizedBox(height: gap,),
+          Container(
+            padding: EdgeInsets.only(left: gap, right: gap),
+            child: Column(
+              children: List.generate(PRODUCTS.length, (index) {
+                var product = PRODUCTS[index];
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRouteName.detail, arguments: {
+                      "data" : product
+                    });
+                  },
+                  child: ProductItem(
+                    title: product["title"],
+                    description: product["description"],
+                    calory: product["calories"],
+                    price: product["price"],
+                    image: product["image"],
+                  ),
+                );
+              }),
+            ),
+          )
         ],
       ),
     );
